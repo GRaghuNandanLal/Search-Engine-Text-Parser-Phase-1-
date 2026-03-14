@@ -1,1 +1,70 @@
-# Search-Engine-Text-Parser-Phase-1-
+# Search Engine Text Parser (Phase 1)
+
+## Project Overview
+
+This project is the first phase of building a search engine: the **Text Parser**. It processes TREC data by extracting individual documents, cleaning the text through tokenization, removing stopwords, and applying the Porter Stemming algorithm. The final output is a dictionary mapping unique tokens and document names to unique numerical IDs.
+
+## Files Included
+
+* **Source Code:**
+* `main.cpp`: Entry point of the application.
+* `Parser.cpp / .h`: Core logic for file reading, tokenization, and dictionary management.
+* `stemmer.h`: Implementation of the Porter Stemming algorithm.
+
+
+* **Resources:**
+* `stopwordlist.txt`: A list of common words to be excluded from the index.
+* `ft911_1` to `ft911_6`: The raw TREC data files.
+
+
+* **Output:**
+* `parser_output.txt`: The generated dictionary file containing Token IDs and Document IDs.
+
+
+
+## Prerequisites
+
+* **Compiler:** `g++` (supporting C++11 or higher).
+* **Environment:** Linux, macOS, or Windows (via MinGW/WSL).
+
+## How to Compile
+
+Open your terminal in the project directory and run the following command:
+
+```bash
+g++ -O3 main.cpp Parser.cpp -o text_parser
+
+```
+
+## How to Run
+
+After compiling, execute the program. Ensure that the TREC data files (`ft911_x`) and `stopwordlist.txt` are in the same directory as the executable.
+
+```bash
+./text_parser
+
+```
+
+## Design Details
+
+1. **Tokenizer:** * Converts all text to lowercase.
+* Removes any word containing a digit.
+* Splits on all non-alphanumeric characters (punctuation, hyphens, etc.).
+
+
+2. **Dictionaries:** * Uses `std::unordered_map` for $O(1)$ average-time lookup for tokens and document names.
+3. **Preprocessing:** * Filters tokens against the provided stopword list.
+* Stems remaining tokens using the Porter Stemmer to ensure "running," "runs," and "ran" map to the same root.
+
+
+4. **TREC Parsing:** * Identifies separate documents using `<DOC>` and `<DOCNO>` tags within the source files.
+
+## Authors
+
+* **Name:** Raghu Nandan Lal Garikipati
+* **ID:** 11754328
+* **Course:** CSCE 5200 - Information Retrieval
+
+---
+
+why I chose specific C++ structures, used `std::unordered_map` for **efficiency** and the `stemmer.h` header for **precision** in following the Porter algorithm requirements.
