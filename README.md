@@ -82,7 +82,7 @@ make clean
 
 ## Changing Input Files
 
-To use different or additional TREC files, edit the `dataFiles` vector in `main.cpp` and keep paths **relative** (e.g. `"./ft911/ft911_1"`). Do not use absolute paths.
+To use different or additional TREC files, edit the `dataPaths` vector in `main.cpp` and keep paths **relative** (e.g. `"./ft911/ft911_1"`). Do not use absolute paths.
 
 ---
 
