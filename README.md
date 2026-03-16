@@ -34,17 +34,18 @@ This is implemented in strict compliance with the specification requirements tha
 
 ## How to Build
 
-From the project root directory (where the `Makefile` is located), execute:
-
-```bash
-make
-
-```
 
 Inorder to eliminate the executable and the output file created, do:
 
 ```bash
 make clean
+
+```
+
+From the project root directory (where the `Makefile` is located), execute:
+
+```bash
+make
 
 ```
 
