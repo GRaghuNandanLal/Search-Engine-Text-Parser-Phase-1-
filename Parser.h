@@ -8,36 +8,34 @@
 
 class Parser {
 public:
-    using WordDictionary = std::unordered_map<std::string, int>;
-    using FileDictionary = std::unordered_map<std::string, int>;
-    using TokenStream = std::vector<int>;
+    using TermDictionary = std::unordered_map<std::string, int>;
+    using DocumentDictionary = std::unordered_map<std::string, int>;
 
     Parser();
     ~Parser() = default;
 
-    void loadStopwords(const std::string& path);
-    void parseTrecFile(const std::string& filepath);
-    void writeOutput(const std::string& outputPath = "parser_output.txt");
+    void loadStopwords(const std::string& stopwordFilePath);
+    void parseTrecFile(const std::string& trecFilePath);
+    void writeOutput(const std::string& outputFileName = "parser_output.txt");
 
-    const WordDictionary& getWordDictionary() const { return wordDict_; }
-    const FileDictionary& getFileDictionary() const { return fileDict_; }
+    const TermDictionary& getTermDictionary() const { return termMap_; }
+    const DocumentDictionary& getDocumentDictionary() const { return documentMap_; }
 
 private:
-    WordDictionary wordDict_;
-    FileDictionary fileDict_;
-    std::set<std::string> uniqueStems_; // NEW: Ensures alphabetical sorting
-    std::set<std::string> stopwords_;    // Changed to set for O(log n) lookup
+    TermDictionary termMap_;
+    DocumentDictionary documentMap_;
+    std::set<std::string> alphabeticalStems_; 
+    std::set<std::string> stopwordSet_;
 
-    std::string extractDocno(const std::string& docBlock) const;
-    std::string extractDocumentText(const std::string& docBlock) const;
-    std::vector<std::string> splitDocuments(const std::string& content) const;
-    std::vector<std::string> tokenize(const std::string& text) const;
-    static bool containsDigit(const std::string& s);
+    std::string findDocumentNumber(const std::string& documentBlock) const;
+    std::string findDocumentText(const std::string& documentBlock) const;
+    std::vector<std::string> segmentDocuments(const std::string& fileContent) const;
+    std::vector<std::string> tokenizeText(const std::string& rawText) const;
+    static bool containsNumericChar(const std::string& token);
     
-    // Helper to extract X from FT911-X
-    int parseNumericId(const std::string& docno) const;
+    int computeNumericId(const std::string& fullDocName) const;
 };
 
-std::string stemWord(const std::string& word);
+std::string getPorterStem(const std::string& word);
 
 #endif
