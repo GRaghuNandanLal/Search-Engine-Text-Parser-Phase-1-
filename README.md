@@ -88,5 +88,6 @@ To use different or additional TREC files, edit the `dataFiles` vector in `main.
 
 ## Author
 
-Raghu Nandan Lal Garikipati  
+Name - Raghu Nandan Lal Garikipati
+Student ID - 11754328  
 CSCE 5200 - Information Retrieval
