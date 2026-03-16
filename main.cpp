@@ -1,29 +1,42 @@
 #include "Parser.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
-int main(int argc, char* argv[]) {
-    std::string stopwordPath = "stopwordlist.txt";
-    std::string outputPath = "parser_output.txt";
-
-    if (argc >= 2) stopwordPath = argv[1];
-    if (argc >= 4) outputPath = argv[3];
+int main() {
+    // Required: use relative paths only (no absolute paths like C:/... or /Users/...)
+    std::string stopwordPath = "./stopwordlist.txt";
+    std::string outputPath = "./parser_output.txt";
 
     Parser parser;
     parser.loadStopwords(stopwordPath);
 
-    if (argc >= 3) {
-        parser.parseTrecFile(argv[2]);
-    } else {
-        // Default: parse all ft911 TREC files
-        for (int i = 1; i <= 15; ++i) {
-            std::string path = "ft911/ft911_" + std::to_string(i);
-            parser.parseTrecFile(path);
-        }
+    // Relative paths: ./ft911/ft911_N
+    std::vector<std::string> dataFiles = {
+        "./ft911/ft911_1",
+        "./ft911/ft911_2",
+        "./ft911/ft911_3",
+        "./ft911/ft911_4",
+        "./ft911/ft911_5",
+        "./ft911/ft911_6",
+        "./ft911/ft911_7",
+        "./ft911/ft911_8",
+        "./ft911/ft911_9",
+        "./ft911/ft911_10",
+        "./ft911/ft911_11",
+        "./ft911/ft911_12",
+        "./ft911/ft911_13",
+        "./ft911/ft911_14",
+        "./ft911/ft911_15",
+    };
+
+    for (const std::string& path : dataFiles) {
+        std::cout << "Attempting to open: " << path << "..." << std::endl;
+        parser.parseTrecFile(path);
     }
 
     parser.writeOutput(outputPath);
-    std::cout << "Wrote " << outputPath << " with " << parser.getWordDictionary().size()
-              << " tokens and " << parser.getFileDictionary().size() << " documents.\n";
+    std::cout << "\nSuccess! Results written to " << outputPath << std::endl;
+
     return 0;
 }
